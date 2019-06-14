@@ -1,0 +1,2489 @@
+@prefix : <http://www.ida.liu.se/ontologies/ice-hockey-ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.ida.liu.se/ontologies/ice-hockey-ontology> .
+
+<http://www.ida.liu.se/ontologies/ice-hockey-ontology> rdf:type owl:Ontology .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#duration
+xsd:duration rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#belongs-to
+:belongs-to rdf:type owl:ObjectProperty ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :On-ice-object
+                                        :Rink
+                                      )
+                        ] ;
+            rdfs:range :Arena .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#contains-team
+:contains-team rdf:type owl:ObjectProperty ;
+               owl:inverseOf :plays-in-league ;
+               rdfs:domain :Season-for-league ;
+               rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#directly-followed-by
+:directly-followed-by rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :followed-by ;
+                      owl:inverseOf :directly-preceded-by ;
+                      rdfs:domain :Game-event ;
+                      rdfs:range :Game-event .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#directly-preceded-by
+:directly-preceded-by rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :preceded-by ;
+                      rdfs:domain :Game-event ;
+                      rdfs:range :Game-event .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#faceoff-at
+:faceoff-at rdf:type owl:ObjectProperty ;
+            rdfs:domain :Faceoff ;
+            rdfs:range :Faceoff-spot .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#followed-by
+:followed-by rdf:type owl:ObjectProperty ;
+             owl:inverseOf :preceded-by ;
+             rdfs:domain :Game-event ;
+             rdfs:range :Game-event .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-attacking-team
+:has-attacking-team rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Shot-event ;
+                    rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-player
+:has-away-player rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :has-faceoff-players ;
+                 rdfs:domain :Faceoff ;
+                 rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-player-on-ice
+:has-away-player-on-ice rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :has-player-on-ice ;
+                        rdfs:domain :Game-state ;
+                        rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-team
+:has-away-team rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :has-participating-team ;
+               rdfs:domain :Game ;
+               rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-team-roster
+:has-away-team-roster rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :has-team-roster ;
+                      rdfs:domain :Game ;
+                      rdfs:range :Team-roster-for-game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defending-team
+:has-defending-team rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Shot-event ;
+                    rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingN-team
+:has-defendingN-team rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :has-period-defending-team ;
+                     rdfs:domain :Period ;
+                     rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingNTeam-bench
+:has-defendingNTeam-bench rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :has-defendingTeam-bench ;
+                          rdfs:domain :Period ;
+                          rdfs:range :Bench-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingS-team
+:has-defendingS-team rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :has-period-defending-team ;
+                     rdfs:domain :Period ;
+                     rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingSTeam-bench
+:has-defendingSTeam-bench rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :has-defendingTeam-bench ;
+                          rdfs:domain :Period ;
+                          rdfs:range :Bench-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingTeam-bench
+:has-defendingTeam-bench rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Period ;
+                         rdfs:range :Bench-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-faceoff-players
+:has-faceoff-players rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Faceoff ;
+                     rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-game-event
+:has-game-event rdf:type owl:ObjectProperty ;
+                rdfs:domain :Game ;
+                rdfs:range :Game-event .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-game-state
+:has-game-state rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :Game-event ;
+                rdfs:range :Game-state .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-head-coach
+:has-head-coach rdf:type owl:ObjectProperty ;
+                rdfs:domain :Team ;
+                rdfs:range :Head-coach .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-arena
+:has-home-arena rdf:type owl:ObjectProperty ;
+                rdfs:domain :Team ;
+                rdfs:range :Arena .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-player
+:has-home-player rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :has-faceoff-players ;
+                 rdfs:domain :Faceoff ;
+                 rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-player-on-ice
+:has-home-player-on-ice rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :has-player-on-ice ;
+                        rdfs:domain :Game-state ;
+                        rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-team
+:has-home-team rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :has-participating-team ;
+               rdfs:domain :Game ;
+               rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-team-roster
+:has-home-team-roster rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :has-team-roster ;
+                      rdfs:domain :Game ;
+                      rdfs:range :Team-roster-for-game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-participating-team
+:has-participating-team rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Game ;
+                        rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalized-player
+:has-penalized-player rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Penalty-event ;
+                      rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalized-team
+:has-penalized-team rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Penalty-event ;
+                    rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalty-severity
+:has-penalty-severity rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Penalty-event ;
+                      rdfs:range :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalty-type
+:has-penalty-type rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Penalty-event ;
+                  rdfs:range :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-period-defending-team
+:has-period-defending-team rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Period ;
+                           rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player
+:has-player rdf:type owl:ObjectProperty ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :Player-on-roster
+                                        :Team
+                                      )
+                        ] ;
+            rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player-in-penalty-box
+:has-player-in-penalty-box rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Penalty-event ;
+                           rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player-on-ice
+:has-player-on-ice rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain :Game-state ;
+                   rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player-on-roster
+:has-player-on-roster rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Team-roster ;
+                      rdfs:range :Player-on-roster .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-season
+:has-season rdf:type owl:ObjectProperty ;
+            owl:inverseOf :is-season-for ;
+            rdfs:domain :League ;
+            rdfs:range :Season-for-league .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-season-game
+:has-season-game rdf:type owl:ObjectProperty ;
+                 owl:inverseOf :is-game-for-season ;
+                 rdfs:domain :Season-for-league ;
+                 rdfs:range :Game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-shooting-player
+:has-shooting-player rdf:type owl:ObjectProperty ;
+                     rdfs:domain :Shot-event ;
+                     rdfs:range :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-substituted-player
+:has-substituted-player rdf:type owl:ObjectProperty ;
+                        rdfs:domain :Shift ;
+                        rdfs:range :Player-on-roster .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-substituting-player
+:has-substituting-player rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Shift ;
+                         rdfs:range :Player-on-roster .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-disposition
+:has-team-disposition rdf:type owl:ObjectProperty ;
+                      rdfs:domain :Game-state ;
+                      rdfs:range :Team-disposition .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-roster
+:has-team-roster rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Game ;
+                 rdfs:range :Team-roster-for-game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-winning-team
+:has-winning-team rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Game ;
+                  rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-adjacent-to
+:is-adjacent-to rdf:type owl:ObjectProperty ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( :Blocked-zone
+                                            :End-zone
+                                            :Faceoff-zone
+                                            :Goal-zone
+                                            :Icing-zone
+                                            :Neutral-zone
+                                          )
+                            ] ;
+                rdfs:range [ rdf:type owl:Class ;
+                             owl:unionOf ( :Blocked-zone
+                                           :End-zone
+                                           :Faceoff-zone
+                                           :Goal-zone
+                                           :Icing-zone
+                                           :Neutral-zone
+                                         )
+                           ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-by-team
+:is-by-team rdf:type owl:ObjectProperty ;
+            rdfs:domain :Shift ;
+            rdfs:range :Team .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-game-for-season
+:is-game-for-season rdf:type owl:ObjectProperty ;
+                    rdfs:domain :Game ;
+                    rdfs:range :Season-for-league .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-located-in
+:is-located-in rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-part-of
+:is-part-of rdf:type owl:ObjectProperty ;
+            rdfs:domain :On-ice-zone ;
+            rdfs:range :Rink .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-season-for
+:is-season-for rdf:type owl:ObjectProperty ;
+               rdfs:domain :Season-for-league ;
+               rdfs:range :League .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#occured-in-period
+:occured-in-period rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain :Game-event ;
+                   rdfs:range :Period ;
+                   rdfs:label "occursInPeriod" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#plays-in-league
+:plays-in-league rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Team ;
+                 rdfs:range :Season-for-league .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#plays-in-season-for-league
+:plays-in-season-for-league rdf:type owl:ObjectProperty ;
+                            rdfs:domain :Team ;
+                            rdfs:range :Season-for-league .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#preceded-by
+:preceded-by rdf:type owl:ObjectProperty ;
+             rdfs:domain :Game-event ;
+             rdfs:range :Game-event .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-abbreviation
+:has-abbreviation rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :has-name ;
+                  rdfs:domain :Team ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-adjusted-x-coordinate
+:has-adjusted-x-coordinate rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf :has-puck-coordinates ;
+                           rdfs:domain :Game-event ;
+                           rdfs:range xsd:double .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-adjusted-y-coordinate
+:has-adjusted-y-coordinate rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf :has-puck-coordinates ;
+                           rdfs:domain :Game-event ;
+                           rdfs:range xsd:double .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-team-goals
+:has-away-team-goals rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :has-team-goals ;
+                     rdfs:domain :Game-event ;
+                     rdfs:range xsd:int .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-birthcity
+:has-birthcity rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-birthdate
+:has-birthdate rdf:type owl:DatatypeProperty ;
+               rdfs:range xsd:date .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-date
+:has-date rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:range xsd:date .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-end-time
+:has-end-time rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :has-game-time ;
+              rdfs:domain :Game ;
+              rdfs:range xsd:dateTime .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-end-year
+:has-end-year rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :has-year ;
+              rdfs:domain :Season-for-league .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-game-time
+:has-game-time rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Game ;
+               rdfs:range xsd:dateTime .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-goal-differential
+:has-goal-differential rdf:type owl:DatatypeProperty ;
+                       rdfs:domain :Game-event ;
+                       rdfs:range xsd:int .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-team-goals
+:has-home-team-goals rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :has-team-goals ;
+                     rdfs:domain :Game-event ;
+                     rdfs:range xsd:int .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-league-name
+:has-league-name rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :has-name ;
+                 rdfs:domain :League ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-length
+:has-length rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Rink .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-name
+:has-name rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-nationality
+:has-nationality rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-order
+:has-order rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Period ;
+           rdfs:range [ rdf:type rdfs:Datatype ;
+                        owl:onDatatype xsd:int ;
+                        owl:withRestrictions ( [ xsd:minInclusive "1"^^xsd:int
+                                               ]
+                                               [ xsd:maxInclusive "5"^^xsd:int
+                                               ]
+                                             )
+                      ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalized-duration
+:has-penalized-duration rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :Penalty-event ;
+                        rdfs:range xsd:integer .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-period-time
+:has-period-time rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Game-event ;
+                 rdfs:range xsd:duration .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-person-name
+:has-person-name rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :has-name ;
+                 rdfs:domain :Person ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-puck-coordinates
+:has-puck-coordinates rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain :Game-event ;
+                      rdfs:range xsd:double .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-shirt-number
+:has-shirt-number rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Player-on-roster ;
+                  rdfs:range xsd:int .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-start-time
+:has-start-time rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :has-game-time ;
+                rdfs:domain :Game ;
+                rdfs:range xsd:dateTime .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-start-year
+:has-start-year rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :has-year ;
+                rdfs:domain :Season-for-league .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-city
+:has-team-city rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Team ;
+               rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-goals
+:has-team-goals rdf:type owl:DatatypeProperty ;
+                rdfs:domain :Game-event ;
+                rdfs:range xsd:int .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-name
+:has-team-name rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf :has-name ;
+               rdfs:domain :Team ;
+               rdfs:range xsd:string .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-time
+:has-time rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain :Game-event ;
+          rdfs:range xsd:dateTime .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-width
+:has-width rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Rink ;
+           rdfs:range xsd:double .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-x-coordinate
+:has-x-coordinate rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :has-puck-coordinates ;
+                  rdfs:domain :Game-event ;
+                  rdfs:range xsd:double .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-y-coordinate
+:has-y-coordinate rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :has-puck-coordinates ;
+                  rdfs:domain :Game-event ;
+                  rdfs:range xsd:double .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-year
+:has-year rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Season-for-league .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Action-event
+:Action-event rdf:type owl:Class ;
+              rdfs:subClassOf :Game-event ,
+                              [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :directly-followed-by ;
+                                                       owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                           owl:unionOf ( :Action-event
+                                                                                         :End-event
+                                                                                         :Penalty-event
+                                                                                         :Stoppage
+                                                                                       )
+                                                                         ]
+                                                     ]
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :directly-followed-by ;
+                                                       owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Arena
+:Arena rdf:type owl:Class .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Assistant-coach
+:Assistant-coach rdf:type owl:Class ;
+                 rdfs:subClassOf :Coach .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Assistant-general-manager
+:Assistant-general-manager rdf:type owl:Class ;
+                           rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-zone
+:Bench-zone rdf:type owl:Class ;
+            rdfs:subClassOf :Off-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-zone-N
+:Bench-zone-N rdf:type owl:Class ;
+              rdfs:subClassOf :Bench-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-zone-S
+:Bench-zone-S rdf:type owl:Class ;
+              rdfs:subClassOf :Bench-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Blocked-shot-event
+:Blocked-shot-event rdf:type owl:Class ;
+                    rdfs:subClassOf :Shot-event ;
+                    rdfs:label "Blocked-shot-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Blocked-zone
+:Blocked-zone rdf:type owl:Class ;
+              rdfs:subClassOf :On-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Board
+:Board rdf:type owl:Class ;
+       rdfs:subClassOf :On-ice-object .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Center
+:Center rdf:type owl:Class ;
+        rdfs:subClassOf :Forward .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Center-ice-faceoff-spot
+:Center-ice-faceoff-spot rdf:type owl:Class ;
+                         rdfs:subClassOf :Faceoff-spot ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :is-located-in ;
+                                           owl:someValuesFrom :Neutral-zone
+                                         ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Chairperson
+:Chairperson rdf:type owl:Class ;
+             rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Coach
+:Coach rdf:type owl:Class ;
+       rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Conditioning-coach
+:Conditioning-coach rdf:type owl:Class ;
+                    rdfs:subClassOf :Coach .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Defender
+:Defender rdf:type owl:Class ;
+          rdfs:subClassOf :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Early-intermission-end
+:Early-intermission-end rdf:type owl:Class ;
+                        rdfs:subClassOf :End-event ;
+                        rdfs:label "Early-intermission-end" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Early-intermission-start
+:Early-intermission-start rdf:type owl:Class ;
+                          rdfs:subClassOf :Start-event ;
+                          rdfs:label "Early-intermission-start" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#End-event
+:End-event rdf:type owl:Class ;
+           rdfs:subClassOf :Game-event ;
+           rdfs:label "End-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#End-zone
+:End-zone rdf:type owl:Class ;
+          rdfs:subClassOf :On-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#End-zone-faceoff-spot
+:End-zone-faceoff-spot rdf:type owl:Class ;
+                       rdfs:subClassOf :Faceoff-spot ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :is-located-in ;
+                                         owl:someValuesFrom :End-zone
+                                       ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Equipment-manager
+:Equipment-manager rdf:type owl:Class ;
+                   rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Even
+:Even rdf:type owl:Class ;
+      rdfs:subClassOf :Team-disposition .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Event
+:Event rdf:type owl:Class ;
+       rdfs:label "Event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff
+:Faceoff rdf:type owl:Class ;
+         rdfs:subClassOf :Game-event ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :directly-followed-by ;
+                           owl:someValuesFrom :Action-event
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :faceoff-at ;
+                           owl:allValuesFrom :Faceoff-spot
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :has-away-player ;
+                           owl:allValuesFrom :Player-on-roster
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :has-home-player ;
+                           owl:allValuesFrom :Player-on-roster
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :faceoff-at ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Faceoff-spot
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :has-winning-team ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Team
+                         ] ;
+         rdfs:label "Faceoff" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot
+:Faceoff-spot rdf:type owl:Class ;
+              rdfs:subClassOf :On-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CNE
+:Faceoff-spot-CNE rdf:type owl:Class ;
+                  rdfs:subClassOf :Neutral-zone-faceoff-spot ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-located-in ;
+                                    owl:someValuesFrom :Zone-CNE
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CNW
+:Faceoff-spot-CNW rdf:type owl:Class ;
+                  rdfs:subClassOf :Neutral-zone-faceoff-spot ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-located-in ;
+                                    owl:someValuesFrom :Zone-CNW
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CSE
+:Faceoff-spot-CSE rdf:type owl:Class ;
+                  rdfs:subClassOf :Neutral-zone-faceoff-spot ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-located-in ;
+                                    owl:someValuesFrom :Zone-CSE
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CSW
+:Faceoff-spot-CSW rdf:type owl:Class ;
+                  rdfs:subClassOf :Neutral-zone-faceoff-spot ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-located-in ;
+                                    owl:someValuesFrom :Zone-CSW
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-NE
+:Faceoff-spot-NE rdf:type owl:Class ;
+                 rdfs:subClassOf :End-zone-faceoff-spot ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :North-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-NE
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-NW
+:Faceoff-spot-NW rdf:type owl:Class ;
+                 rdfs:subClassOf :End-zone-faceoff-spot ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :North-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-NW
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-SE
+:Faceoff-spot-SE rdf:type owl:Class ;
+                 rdfs:subClassOf :End-zone-faceoff-spot ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :South-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-SE
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-SW
+:Faceoff-spot-SW rdf:type owl:Class ;
+                 rdfs:subClassOf :End-zone-faceoff-spot ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :South-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-SW
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone
+:Faceoff-zone rdf:type owl:Class ;
+              rdfs:subClassOf :On-ice-zone ;
+              rdfs:comment "There are nine faceoff zones totally." .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-C
+:Faceoff-zone-C rdf:type owl:Class ;
+                rdfs:subClassOf :Faceoff-zone ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-located-in ;
+                                  owl:someValuesFrom :Neutral-zone
+                                ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-NE
+:Faceoff-zone-NE rdf:type owl:Class ;
+                 rdfs:subClassOf :Faceoff-zone ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :North-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-NE
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-NW
+:Faceoff-zone-NW rdf:type owl:Class ;
+                 rdfs:subClassOf :Faceoff-zone ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :North-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-NW
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-SE
+:Faceoff-zone-SE rdf:type owl:Class ;
+                 rdfs:subClassOf :Faceoff-zone ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :South-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-SE
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-SW
+:Faceoff-zone-SW rdf:type owl:Class ;
+                 rdfs:subClassOf :Faceoff-zone ,
+                                 [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :South-end-zone
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :is-located-in ;
+                                                          owl:someValuesFrom :Zone-SW
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Forward
+:Forward rdf:type owl:Class ;
+         rdfs:subClassOf :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game
+:Game rdf:type owl:Class ;
+      rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                               owl:onProperty :has-end-time ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onDataRange xsd:dateTime
+                                             ]
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty :has-start-time ;
+                                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                               owl:onDataRange xsd:dateTime
+                                             ]
+                                           ) ;
+                        rdf:type owl:Class
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-game-event ;
+                        owl:someValuesFrom :Game-event
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-away-team ;
+                        owl:allValuesFrom :Team
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-away-team-roster ;
+                        owl:allValuesFrom :Team-roster-for-game
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-home-team ;
+                        owl:allValuesFrom :Team
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-home-team-roster ;
+                        owl:allValuesFrom :Team-roster-for-game
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :is-game-for-season ;
+                        owl:allValuesFrom :Season-for-league
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-away-team ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Team
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-away-team-roster ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Team-roster-for-game
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-home-team ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Team
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-home-team-roster ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Team-roster-for-game
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :is-game-for-season ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Season-for-league
+                      ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-end
+:Game-end rdf:type owl:Class ;
+          rdfs:subClassOf :End-event ;
+          rdfs:label "Game-end" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-event
+:Game-event rdf:type owl:Class ;
+            rdfs:subClassOf :Event ,
+                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-game-state ;
+                                                     owl:allValuesFrom :Game-state
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-game-state ;
+                                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-period-time ;
+                                                     owl:allValuesFrom xsd:duration
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-period-time ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onDataRange xsd:duration
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-time ;
+                                                     owl:allValuesFrom xsd:dateTime
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-time ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onDataRange xsd:dateTime
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :occured-in-period ;
+                              owl:someValuesFrom :Period
+                            ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-off
+:Game-off rdf:type owl:Class ;
+          rdfs:subClassOf :End-event ;
+          rdfs:label "Game-off" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-state
+:Game-state rdf:type owl:Class ;
+            rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-away-player-on-ice ;
+                                                     owl:someValuesFrom :Player
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-home-player-on-ice ;
+                                                     owl:someValuesFrom :Player
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-team-disposition ;
+                                                     owl:allValuesFrom :Team-disposition
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-team-disposition ;
+                                                     owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ,
+                            [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-away-team-goals ;
+                                                     owl:someValuesFrom xsd:int
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-goal-differential ;
+                                                     owl:someValuesFrom xsd:int
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :has-home-team-goals ;
+                                                     owl:someValuesFrom xsd:int
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#General-manager
+:General-manager rdf:type owl:Class ;
+                 rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Giveaway
+:Giveaway rdf:type owl:Class ;
+          rdfs:subClassOf :Action-event ;
+          rdfs:label "Giveaway" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goal-frame
+:Goal-frame rdf:type owl:Class ;
+            rdfs:subClassOf :On-ice-object .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goal-net
+:Goal-net rdf:type owl:Class ;
+          rdfs:subClassOf :On-ice-object .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goal-zone
+:Goal-zone rdf:type owl:Class ;
+           rdfs:subClassOf :On-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goalkeeper
+:Goalkeeper rdf:type owl:Class ;
+            rdfs:subClassOf :Player .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goaltending-coach
+:Goaltending-coach rdf:type owl:Class ;
+                   rdfs:subClassOf :Coach .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Head-coach
+:Head-coach rdf:type owl:Class ;
+            rdfs:subClassOf :Coach .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Hit
+:Hit rdf:type owl:Class ;
+     rdfs:subClassOf :Action-event ;
+     rdfs:label "Hit" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Icing-zone
+:Icing-zone rdf:type owl:Class ;
+            rdfs:subClassOf :On-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#League
+:League rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-season ;
+                          owl:someValuesFrom :Season-for-league
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-season ;
+                          owl:allValuesFrom :Season-for-league
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-league-name ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-league-name ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Left-Wing
+:Left-Wing rdf:type owl:Class ;
+           rdfs:subClassOf :Forward .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Missed-shot-event
+:Missed-shot-event rdf:type owl:Class ;
+                   rdfs:subClassOf :Shot-event ;
+                   rdfs:label "Missed-shot-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Moorings
+:Moorings rdf:type owl:Class ;
+          rdfs:subClassOf :On-ice-object .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Neutral-zone
+:Neutral-zone rdf:type owl:Class ;
+              rdfs:subClassOf :On-ice-zone ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:allValuesFrom [ rdf:type owl:Class ;
+                                                    owl:unionOf ( :North-end-zone
+                                                                  :South-end-zone
+                                                                  :Zone-NE
+                                                                  :Zone-NW
+                                                                  :Zone-SE
+                                                                  :Zone-SW
+                                                                )
+                                                  ]
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :North-end-zone
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :South-end-zone
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Zone-NE
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Zone-NW
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Zone-SE
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :is-adjacent-to ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Zone-SW
+                              ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Neutral-zone-faceoff-spot
+:Neutral-zone-faceoff-spot rdf:type owl:Class ;
+                           rdfs:subClassOf :Faceoff-spot ,
+                                           [ rdf:type owl:Restriction ;
+                                             owl:onProperty :is-located-in ;
+                                             owl:someValuesFrom :Neutral-zone
+                                           ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#North-end-zone
+:North-end-zone rdf:type owl:Class ;
+                rdfs:subClassOf :End-zone ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:allValuesFrom [ rdf:type owl:Class ;
+                                                      owl:unionOf ( :Neutral-zone
+                                                                    :North-icing-zone
+                                                                    :Zone-CNE
+                                                                    :Zone-CNW
+                                                                  )
+                                                    ]
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Neutral-zone
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :North-icing-zone
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Zone-CNE
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Zone-CNW
+                                ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#North-goal-zone
+:North-goal-zone rdf:type owl:Class ;
+                 rdfs:subClassOf :Goal-zone ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-located-in ;
+                                   owl:someValuesFrom :North-end-zone
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( :North-icing-zone
+                                                                     :Zone-NE
+                                                                     :Zone-NW
+                                                                   )
+                                                     ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :North-icing-zone
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Zone-NE
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Zone-NW
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#North-icing-zone
+:North-icing-zone rdf:type owl:Class ;
+                  rdfs:subClassOf :Icing-zone ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                        owl:unionOf ( :North-end-zone
+                                                                      :North-goal-zone
+                                                                      :Zone-NE
+                                                                      :Zone-NW
+                                                                    )
+                                                      ]
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :North-end-zone
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :North-goal-zone
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Zone-NE
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Zone-NW
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Off-ice-zone
+:Off-ice-zone rdf:type owl:Class ;
+              rdfs:subClassOf :Zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#On-ice-object
+:On-ice-object rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :belongs-to ;
+                                 owl:allValuesFrom :Arena
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :belongs-to ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Arena
+                               ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#On-ice-zone
+:On-ice-zone rdf:type owl:Class ;
+             rdfs:subClassOf :Zone ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :is-part-of ;
+                               owl:allValuesFrom :Rink
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :is-part-of ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Rink
+                             ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Overtime-period
+:Overtime-period rdf:type owl:Class ;
+                 rdfs:subClassOf :Period .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty
+:Penalty rdf:type owl:Class .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-box-zone
+:Penalty-box-zone rdf:type owl:Class ;
+                  rdfs:subClassOf :Off-ice-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-box-zone-N
+:Penalty-box-zone-N rdf:type owl:Class ;
+                    rdfs:subClassOf :Penalty-box-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-box-zone-S
+:Penalty-box-zone-S rdf:type owl:Class ;
+                    rdfs:subClassOf :Penalty-box-zone .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-event
+:Penalty-event rdf:type owl:Class ;
+               rdfs:subClassOf :Game-event ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalized-player ;
+                                 owl:allValuesFrom :Player
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalized-team ;
+                                 owl:allValuesFrom :Team
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalty-severity ;
+                                 owl:allValuesFrom :Penalty
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalty-type ;
+                                 owl:allValuesFrom :Penalty-type
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-player-in-penalty-box ;
+                                 owl:allValuesFrom :Player
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalized-player ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Player
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalized-team ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Team
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-player-in-penalty-box ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Player
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalized-duration ;
+                                 owl:allValuesFrom xsd:int
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :has-penalized-duration ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onDataRange xsd:int
+                               ] ;
+               rdfs:label "Penalty-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-shot-shootout-period
+:Penalty-shot-shootout-period rdf:type owl:Class ;
+                              rdfs:subClassOf :Period .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-type
+:Penalty-type rdf:type owl:Class ;
+              rdfs:label "Penalty-type" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Period
+:Period rdf:type owl:Class ;
+        rdfs:subClassOf [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :has-end-time ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onDataRange xsd:dateTime
+                                               ]
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :has-start-time ;
+                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                 owl:onDataRange xsd:dateTime
+                                               ]
+                                             ) ;
+                          rdf:type owl:Class
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingN-team ;
+                          owl:allValuesFrom :Team
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingNTeam-bench ;
+                          owl:allValuesFrom [ rdf:type owl:Class ;
+                                              owl:unionOf ( :Bench-zone-N
+                                                            :Bench-zone-S
+                                                          )
+                                            ]
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingS-team ;
+                          owl:allValuesFrom :Team
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingSTeam-bench ;
+                          owl:allValuesFrom [ rdf:type owl:Class ;
+                                              owl:unionOf ( :Bench-zone-N
+                                                            :Bench-zone-S
+                                                          )
+                                            ]
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingN-team ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass :Team
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingNTeam-bench ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass [ rdf:type owl:Class ;
+                                        owl:unionOf ( :Bench-zone-N
+                                                      :Bench-zone-S
+                                                    )
+                                      ]
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingS-team ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass :Team
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-defendingSTeam-bench ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass [ rdf:type owl:Class ;
+                                        owl:unionOf ( :Bench-zone-N
+                                                      :Bench-zone-S
+                                                    )
+                                      ]
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-order ;
+                          owl:allValuesFrom xsd:integer
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-order ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:integer
+                        ] ;
+        rdfs:label "Period" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Period-end
+:Period-end rdf:type owl:Class ;
+            rdfs:subClassOf :End-event ;
+            rdfs:label "Period-end" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Period-start
+:Period-start rdf:type owl:Class ;
+              rdfs:subClassOf :Start-event ;
+              rdfs:label "Period-start" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Person
+:Person rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-person-name ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-person-name ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Player
+:Player rdf:type owl:Class ;
+        rdfs:subClassOf :Person ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-birthcity ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-birthdate ;
+                          owl:allValuesFrom xsd:date
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-nationality ;
+                          owl:allValuesFrom xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-nationality ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-birthcity ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:string
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :has-birthdate ;
+                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onDataRange xsd:date
+                        ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Player-on-roster
+:Player-on-roster rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty :has-player ;
+                                    owl:someValuesFrom :Player
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :has-player ;
+                                    owl:allValuesFrom :Player
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :has-shirt-number ;
+                                    owl:allValuesFrom xsd:integer
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :has-shirt-number ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onDataRange xsd:integer
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Playoff-game
+:Playoff-game rdf:type owl:Class ;
+              rdfs:subClassOf :Game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Power-play
+:Power-play rdf:type owl:Class ;
+            rdfs:subClassOf :Team-disposition .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Preseason-game
+:Preseason-game rdf:type owl:Class ;
+                rdfs:subClassOf :Game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#President
+:President rdf:type owl:Class ;
+           rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Protective-netting
+:Protective-netting rdf:type owl:Class ;
+                    rdfs:subClassOf :On-ice-object .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Puck
+:Puck rdf:type owl:Class ;
+      rdfs:subClassOf :On-ice-object .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Referee
+:Referee rdf:type owl:Class ;
+         rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Regular-season-game
+:Regular-season-game rdf:type owl:Class ;
+                     rdfs:subClassOf :Game .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Regulation-period
+:Regulation-period rdf:type owl:Class ;
+                   rdfs:subClassOf :Period .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Right-Wing
+:Right-Wing rdf:type owl:Class ;
+            rdfs:subClassOf :Forward .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Rink
+:Rink rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-length ;
+                        owl:allValuesFrom xsd:double
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-width ;
+                        owl:allValuesFrom xsd:double
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-length ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onDataRange xsd:double
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-width ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onDataRange xsd:double
+                      ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Scoring-shot-event
+:Scoring-shot-event rdf:type owl:Class ;
+                    rdfs:subClassOf :Shot-on-goal-event .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Scout
+:Scout rdf:type owl:Class ;
+       rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Season-for-league
+:Season-for-league rdf:type owl:Class ;
+                   rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                     owl:onProperty :contains-team ;
+                                     owl:someValuesFrom :Team
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :has-season-game ;
+                                     owl:someValuesFrom :Game
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :contains-team ;
+                                     owl:allValuesFrom :Team
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :has-season-game ;
+                                     owl:allValuesFrom :Game
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :is-season-for ;
+                                     owl:allValuesFrom :League
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :is-season-for ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onClass :League
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :has-end-year ;
+                                     owl:allValuesFrom xsd:integer
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :has-start-year ;
+                                     owl:allValuesFrom xsd:integer
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :has-end-year ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:integer
+                                   ] ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :has-start-year ;
+                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                     owl:onDataRange xsd:integer
+                                   ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Shift
+:Shift rdf:type owl:Class ;
+       rdfs:subClassOf :Action-event ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :has-substituted-player ;
+                         owl:someValuesFrom :Player-on-roster
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :has-substituting-player ;
+                         owl:someValuesFrom :Player-on-roster
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :is-by-team ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onClass :Team
+                       ] ;
+       rdfs:label "Shift" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Short-handed
+:Short-handed rdf:type owl:Class ;
+              rdfs:subClassOf :Team-disposition .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Shot-event
+:Shot-event rdf:type owl:Class ;
+            rdfs:subClassOf :Action-event ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :has-attacking-team ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Team
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :has-defending-team ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Team
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :has-shooting-player ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Player-on-roster
+                            ] ;
+            rdfs:label "Shot-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Shot-on-goal-event
+:Shot-on-goal-event rdf:type owl:Class ;
+                    rdfs:subClassOf :Shot-event ;
+                    rdfs:label "Shot-on-goal-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#South-end-zone
+:South-end-zone rdf:type owl:Class ;
+                rdfs:subClassOf :End-zone ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:allValuesFrom [ rdf:type owl:Class ;
+                                                      owl:unionOf ( :Neutral-zone
+                                                                    :South-icing-zone
+                                                                    :Zone-CSE
+                                                                    :Zone-CSW
+                                                                  )
+                                                    ]
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Neutral-zone
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :South-icing-zone
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Zone-CSE
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :is-adjacent-to ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Zone-CSW
+                                ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#South-goal-zone
+:South-goal-zone rdf:type owl:Class ;
+                 rdfs:subClassOf :Goal-zone ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-located-in ;
+                                   owl:someValuesFrom :South-end-zone
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( :South-icing-zone
+                                                                     :Zone-SE
+                                                                     :Zone-SW
+                                                                   )
+                                                     ]
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :South-icing-zone
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Zone-SE
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :is-adjacent-to ;
+                                   owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                   owl:onClass :Zone-SW
+                                 ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#South-icing-zone
+:South-icing-zone rdf:type owl:Class ;
+                  rdfs:subClassOf :Icing-zone ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                        owl:unionOf ( :South-end-zone
+                                                                      :South-goal-zone
+                                                                      :Zone-SE
+                                                                      :Zone-SW
+                                                                    )
+                                                      ]
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :South-end-zone
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :South-goal-zone
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Zone-SE
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :is-adjacent-to ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Zone-SW
+                                  ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Start-event
+:Start-event rdf:type owl:Class ;
+             rdfs:subClassOf :Game-event ,
+                             [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :directly-followed-by ;
+                                                      owl:allValuesFrom :Faceoff
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :directly-followed-by ;
+                                                      owl:cardinality "1"^^xsd:nonNegativeInteger
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+             rdfs:label "Start-event" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Stoppage
+:Stoppage rdf:type owl:Class ;
+          rdfs:subClassOf :Game-event .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Takeaway
+:Takeaway rdf:type owl:Class ;
+          rdfs:subClassOf :Action-event ;
+          rdfs:label "Takeaway" .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team
+:Team rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-player ;
+                        owl:someValuesFrom :Player
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :plays-in-season-for-league ;
+                        owl:someValuesFrom :Season-for-league
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-head-coach ;
+                        owl:allValuesFrom :Head-coach
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-home-arena ;
+                        owl:allValuesFrom :Arena
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :plays-in-season-for-league ;
+                        owl:allValuesFrom :Season-for-league
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-head-coach ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Head-coach
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-home-arena ;
+                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                        owl:onClass :Arena
+                      ] ,
+                      [ rdf:type owl:Restriction ;
+                        owl:onProperty :has-team-name ;
+                        owl:allValuesFrom xsd:string
+                      ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-disposition
+:Team-disposition rdf:type owl:Class .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-physician
+:Team-physician rdf:type owl:Class ;
+                rdfs:subClassOf :Person .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-roster
+:Team-roster rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty :has-player-on-roster ;
+                               owl:someValuesFrom :Player-on-roster
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :has-player-on-roster ;
+                               owl:allValuesFrom :Player-on-roster
+                             ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-roster-for-game
+:Team-roster-for-game rdf:type owl:Class ;
+                      rdfs:subClassOf :Team-roster ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :has-season-game ;
+                                        owl:allValuesFrom :Game
+                                      ] ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :has-season-game ;
+                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                        owl:onClass :Game
+                                      ] ;
+                      owl:disjointWith :Team-roster-for-season .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-roster-for-season
+:Team-roster-for-season rdf:type owl:Class ;
+                        rdfs:subClassOf :Team-roster ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :has-season ;
+                                          owl:allValuesFrom :Season-for-league
+                                        ] ,
+                                        [ rdf:type owl:Restriction ;
+                                          owl:onProperty :has-season ;
+                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                          owl:onClass :Season-for-league
+                                        ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Video-coach
+:Video-coach rdf:type owl:Class ;
+             rdfs:subClassOf :Coach .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone
+:Zone rdf:type owl:Class .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CNE
+:Zone-CNE rdf:type owl:Class ;
+          rdfs:subClassOf :Blocked-zone ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-located-in ;
+                            owl:someValuesFrom :Neutral-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:allValuesFrom [ rdf:type owl:Class ;
+                                                owl:unionOf ( :North-end-zone
+                                                              :Zone-CNW
+                                                              :Zone-CSE
+                                                              :Zone-NE
+                                                            )
+                                              ]
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :North-end-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CNW
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CSE
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-NE
+                          ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CNW
+:Zone-CNW rdf:type owl:Class ;
+          rdfs:subClassOf :Blocked-zone ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-located-in ;
+                            owl:someValuesFrom :Neutral-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:allValuesFrom [ rdf:type owl:Class ;
+                                                owl:unionOf ( :North-end-zone
+                                                              :Zone-CNE
+                                                              :Zone-CSW
+                                                              :Zone-SW
+                                                            )
+                                              ]
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :North-end-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CNE
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CSW
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-SW
+                          ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CSE
+:Zone-CSE rdf:type owl:Class ;
+          rdfs:subClassOf :Blocked-zone ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-located-in ;
+                            owl:someValuesFrom :Neutral-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:allValuesFrom [ rdf:type owl:Class ;
+                                                owl:unionOf ( :South-end-zone
+                                                              :Zone-CNE
+                                                              :Zone-CSW
+                                                              :Zone-SW
+                                                            )
+                                              ]
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :South-end-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CNE
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CSW
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-SW
+                          ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CSW
+:Zone-CSW rdf:type owl:Class ;
+          rdfs:subClassOf :Blocked-zone ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-located-in ;
+                            owl:someValuesFrom :Neutral-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:allValuesFrom [ rdf:type owl:Class ;
+                                                owl:unionOf ( :South-end-zone
+                                                              :Zone-CNW
+                                                              :Zone-CSE
+                                                              :Zone-SW
+                                                            )
+                                              ]
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :South-end-zone
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CNW
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-CSE
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :is-adjacent-to ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Zone-SW
+                          ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-NE
+:Zone-NE rdf:type owl:Class ;
+         rdfs:subClassOf :Blocked-zone ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-located-in ;
+                           owl:someValuesFrom :North-end-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( :Neutral-zone
+                                                             :North-icing-zone
+                                                             :Zone-CNE
+                                                             :Zone-NW
+                                                           )
+                                             ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Neutral-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :North-icing-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-CNE
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-NW
+                         ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-NW
+:Zone-NW rdf:type owl:Class ;
+         rdfs:subClassOf :Blocked-zone ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-located-in ;
+                           owl:someValuesFrom :North-end-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( :Neutral-zone
+                                                             :North-icing-zone
+                                                             :Zone-CNW
+                                                             :Zone-NE
+                                                           )
+                                             ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Neutral-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :North-icing-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-CNW
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-NE
+                         ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-SE
+:Zone-SE rdf:type owl:Class ;
+         rdfs:subClassOf :Blocked-zone ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-located-in ;
+                           owl:someValuesFrom :South-end-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( :Neutral-zone
+                                                             :South-icing-zone
+                                                             :Zone-CSE
+                                                             :Zone-SW
+                                                           )
+                                             ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Neutral-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :South-icing-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-CSE
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-SW
+                         ] .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-SW
+:Zone-SW rdf:type owl:Class ;
+         rdfs:subClassOf :Blocked-zone ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-located-in ;
+                           owl:someValuesFrom :South-end-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( :Neutral-zone
+                                                             :South-icing-zone
+                                                             :Zone-CSW
+                                                             :Zone-SE
+                                                           )
+                                             ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Neutral-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :South-icing-zone
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-CSW
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty :is-adjacent-to ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Zone-SE
+                         ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-Minor-Penalty
+:Bench-Minor-Penalty rdf:type owl:NamedIndividual ,
+                              :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Even-3-3
+:Even-3-3 rdf:type owl:NamedIndividual ,
+                   :Even .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Even-4-4
+:Even-4-4 rdf:type owl:NamedIndividual ,
+                   :Even .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Even-5-5
+:Even-5-5 rdf:type owl:NamedIndividual ,
+                   :Even .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Fighting
+:Fighting rdf:type owl:NamedIndividual ,
+                   :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-Misconduct-Penalty
+:Game-Misconduct-Penalty rdf:type owl:NamedIndividual ,
+                                  :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#High-Sticking
+:High-Sticking rdf:type owl:NamedIndividual ,
+                        :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Holding
+:Holding rdf:type owl:NamedIndividual ,
+                  :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Interference
+:Interference rdf:type owl:NamedIndividual ,
+                       :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Major-Penalty
+:Major-Penalty rdf:type owl:NamedIndividual ,
+                        :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Match-Penalty
+:Match-Penalty rdf:type owl:NamedIndividual ,
+                        :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Minor-Penalty
+:Minor-Penalty rdf:type owl:NamedIndividual ,
+                        :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Misconduct-Penalty
+:Misconduct-Penalty rdf:type owl:NamedIndividual ,
+                             :Penalty .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#PP-5-3
+:PP-5-3 rdf:type owl:NamedIndividual ,
+                 :Power-play .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#PP-5-4
+:PP-5-4 rdf:type owl:NamedIndividual ,
+                 :Power-play .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#SH-3-5
+:SH-3-5 rdf:type owl:NamedIndividual ,
+                 :Short-handed .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#SH-4-5
+:SH-4-5 rdf:type owl:NamedIndividual ,
+                 :Short-handed .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Slashing
+:Slashing rdf:type owl:NamedIndividual ,
+                   :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Too-Many-Players-On-Ice
+:Too-Many-Players-On-Ice rdf:type owl:NamedIndividual ,
+                                  :Penalty-type .
+
+
+###  http://www.ida.liu.se/ontologies/ice-hockey-ontology#Tripping
+:Tripping rdf:type owl:NamedIndividual ,
+                   :Penalty-type .
+
+
+###  Generated by the OWL API (version 5.1.9) https://github.com/owlcs/owlapi/

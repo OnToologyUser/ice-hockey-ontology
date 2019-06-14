@@ -1,0 +1,724 @@
+{
+  "@context" : {
+    "has-name" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-name"
+    },
+    "South-icing-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#South-icing-zone"
+    },
+    "Penalty-type" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-type"
+    },
+    "has-birthdate" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-birthdate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#date"
+    },
+    "has-league-name" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-league-name",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "has-attacking-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-attacking-team",
+      "@type" : "@id"
+    },
+    "Goalkeeper" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goalkeeper"
+    },
+    "Blocked-shot-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Blocked-shot-event"
+    },
+    "Short-handed" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Short-handed"
+    },
+    "has-game-state" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-game-state",
+      "@type" : "@id"
+    },
+    "Arena" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Arena"
+    },
+    "Player-on-roster" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Player-on-roster"
+    },
+    "Goal-frame" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goal-frame"
+    },
+    "has-penalized-duration" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalized-duration",
+      "@type" : "http://www.w3.org/2001/XMLSchema#integer"
+    },
+    "Period" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Period"
+    },
+    "has-x-coordinate" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-x-coordinate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "Faceoff-zone-NW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-NW"
+    },
+    "Penalty-box-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-box-zone"
+    },
+    "has-penalty-type" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalty-type",
+      "@type" : "@id"
+    },
+    "Goaltending-coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goaltending-coach"
+    },
+    "has-substituted-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-substituted-player",
+      "@type" : "@id"
+    },
+    "has-start-year" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-start-year"
+    },
+    "has-abbreviation" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-abbreviation",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "has-person-name" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-person-name",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Faceoff-zone-SW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-SW"
+    },
+    "Bench-zone-N" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-zone-N"
+    },
+    "Playoff-game" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Playoff-game"
+    },
+    "Video-coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Video-coach"
+    },
+    "Early-intermission-end" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Early-intermission-end"
+    },
+    "has-season" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-season",
+      "@type" : "@id"
+    },
+    "has-end-year" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-end-year"
+    },
+    "Giveaway" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Giveaway"
+    },
+    "Takeaway" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Takeaway"
+    },
+    "directly-followed-by" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#directly-followed-by",
+      "@type" : "@id"
+    },
+    "Thing" : {
+      "@id" : "http://www.w3.org/2002/07/owl#Thing"
+    },
+    "Zone-CNW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CNW"
+    },
+    "topDataProperty" : {
+      "@id" : "http://www.w3.org/2002/07/owl#topDataProperty"
+    },
+    "has-period-defending-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-period-defending-team",
+      "@type" : "@id"
+    },
+    "Left-Wing" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Left-Wing"
+    },
+    "Head-coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Head-coach"
+    },
+    "Faceoff-spot-NE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-NE"
+    },
+    "Center" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Center"
+    },
+    "Zone-CNE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CNE"
+    },
+    "Bench-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-zone"
+    },
+    "has-year" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-year"
+    },
+    "Faceoff-spot-CNE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CNE"
+    },
+    "has-start-time" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-start-time",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "Zone-SE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-SE"
+    },
+    "is-part-of" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-part-of",
+      "@type" : "@id"
+    },
+    "has-birthcity" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-birthcity",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Faceoff-spot-CSW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CSW"
+    },
+    "General-manager" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#General-manager"
+    },
+    "South-end-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#South-end-zone"
+    },
+    "Board" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Board"
+    },
+    "has-period-time" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-period-time",
+      "@type" : "http://www.w3.org/2001/XMLSchema#duration"
+    },
+    "Off-ice-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Off-ice-zone"
+    },
+    "Team-roster-for-game" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-roster-for-game"
+    },
+    "Shot-on-goal-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Shot-on-goal-event"
+    },
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label"
+    },
+    "has-shooting-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-shooting-player",
+      "@type" : "@id"
+    },
+    "Moorings" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Moorings"
+    },
+    "Assistant-general-manager" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Assistant-general-manager"
+    },
+    "Game-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-event"
+    },
+    "Shot-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Shot-event"
+    },
+    "has-participating-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-participating-team",
+      "@type" : "@id"
+    },
+    "has-player-in-penalty-box" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player-in-penalty-box",
+      "@type" : "@id"
+    },
+    "has-home-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-player",
+      "@type" : "@id"
+    },
+    "On-ice-object" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#On-ice-object"
+    },
+    "has-length" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-length"
+    },
+    "Stoppage" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Stoppage"
+    },
+    "Zone-SW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-SW"
+    },
+    "Player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Player"
+    },
+    "has-puck-coordinates" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-puck-coordinates",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "Event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Event"
+    },
+    "preceded-by" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#preceded-by",
+      "@type" : "@id"
+    },
+    "has-team-name" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-name",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Zone-CSW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CSW"
+    },
+    "has-end-time" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-end-time",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "Overtime-period" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Overtime-period"
+    },
+    "has-game-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-game-event",
+      "@type" : "@id"
+    },
+    "Faceoff-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone"
+    },
+    "Coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Coach"
+    },
+    "is-by-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-by-team",
+      "@type" : "@id"
+    },
+    "Person" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Person"
+    },
+    "Conditioning-coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Conditioning-coach"
+    },
+    "has-substituting-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-substituting-player",
+      "@type" : "@id"
+    },
+    "Zone-CSE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-CSE"
+    },
+    "has-away-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-player",
+      "@type" : "@id"
+    },
+    "Start-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Start-event"
+    },
+    "Regulation-period" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Regulation-period"
+    },
+    "Blocked-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Blocked-zone"
+    },
+    "North-end-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#North-end-zone"
+    },
+    "Faceoff-spot-SW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-SW"
+    },
+    "Action-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Action-event"
+    },
+    "Referee" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Referee"
+    },
+    "Chairperson" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Chairperson"
+    },
+    "Preseason-game" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Preseason-game"
+    },
+    "Season-for-league" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Season-for-league"
+    },
+    "Defender" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Defender"
+    },
+    "Zone-NE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-NE"
+    },
+    "has-adjusted-y-coordinate" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-adjusted-y-coordinate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "Penalty-box-zone-S" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-box-zone-S"
+    },
+    "has-team-city" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-city",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "has-faceoff-players" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-faceoff-players",
+      "@type" : "@id"
+    },
+    "has-width" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-width",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "has-player-on-roster" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player-on-roster",
+      "@type" : "@id"
+    },
+    "topObjectProperty" : {
+      "@id" : "http://www.w3.org/2002/07/owl#topObjectProperty",
+      "@type" : "@id"
+    },
+    "Assistant-coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Assistant-coach"
+    },
+    "Scout" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Scout"
+    },
+    "has-penalty-severity" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalty-severity",
+      "@type" : "@id"
+    },
+    "Puck" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Puck"
+    },
+    "Bench-zone-S" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Bench-zone-S"
+    },
+    "End-zone-faceoff-spot" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#End-zone-faceoff-spot"
+    },
+    "Team-roster" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-roster"
+    },
+    "Game-end" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-end"
+    },
+    "Period-start" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Period-start"
+    },
+    "has-goal-differential" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-goal-differential",
+      "@type" : "http://www.w3.org/2001/XMLSchema#int"
+    },
+    "has-defendingNTeam-bench" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingNTeam-bench",
+      "@type" : "@id"
+    },
+    "Zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone"
+    },
+    "Penalty-shot-shootout-period" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-shot-shootout-period"
+    },
+    "Scoring-shot-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Scoring-shot-event"
+    },
+    "Faceoff-zone-NE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-NE"
+    },
+    "contains-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#contains-team",
+      "@type" : "@id"
+    },
+    "Faceoff" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff"
+    },
+    "North-goal-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#North-goal-zone"
+    },
+    "directly-preceded-by" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#directly-preceded-by",
+      "@type" : "@id"
+    },
+    "President" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#President"
+    },
+    "has-away-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-team",
+      "@type" : "@id"
+    },
+    "Icing-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Icing-zone"
+    },
+    "Regular-season-game" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Regular-season-game"
+    },
+    "followed-by" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#followed-by",
+      "@type" : "@id"
+    },
+    "has-penalized-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalized-team",
+      "@type" : "@id"
+    },
+    "has-defendingSTeam-bench" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingSTeam-bench",
+      "@type" : "@id"
+    },
+    "Forward" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Forward"
+    },
+    "Neutral-zone-faceoff-spot" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Neutral-zone-faceoff-spot"
+    },
+    "has-winning-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-winning-team",
+      "@type" : "@id"
+    },
+    "Game-off" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-off"
+    },
+    "Team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team"
+    },
+    "has-away-player-on-ice" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-player-on-ice",
+      "@type" : "@id"
+    },
+    "has-nationality" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-nationality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
+    "Goal-net" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goal-net"
+    },
+    "Team-roster-for-season" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-roster-for-season"
+    },
+    "On-ice-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#On-ice-zone"
+    },
+    "Center-ice-faceoff-spot" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Center-ice-faceoff-spot"
+    },
+    "South-goal-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#South-goal-zone"
+    },
+    "has-home-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-team",
+      "@type" : "@id"
+    },
+    "Equipment-manager" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Equipment-manager"
+    },
+    "Rink" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Rink"
+    },
+    "Faceoff-spot-CSE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CSE"
+    },
+    "belongs-to" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#belongs-to",
+      "@type" : "@id"
+    },
+    "Penalty-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-event"
+    },
+    "Even" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Even"
+    },
+    "Right-Wing" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Right-Wing"
+    },
+    "is-adjacent-to" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-adjacent-to",
+      "@type" : "@id"
+    },
+    "Team-physician" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-physician"
+    },
+    "has-player-on-ice" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player-on-ice",
+      "@type" : "@id"
+    },
+    "Missed-shot-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Missed-shot-event"
+    },
+    "Goal-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Goal-zone"
+    },
+    "has-order" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-order"
+    },
+    "Power-play" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Power-play"
+    },
+    "Faceoff-spot-SE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-SE"
+    },
+    "faceoff-at" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#faceoff-at",
+      "@type" : "@id"
+    },
+    "has-team-goals" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-goals",
+      "@type" : "http://www.w3.org/2001/XMLSchema#int"
+    },
+    "Game" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game"
+    },
+    "has-defendingN-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingN-team",
+      "@type" : "@id"
+    },
+    "Faceoff-zone-SE" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-SE"
+    },
+    "plays-in-season-for-league" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#plays-in-season-for-league",
+      "@type" : "@id"
+    },
+    "Hit" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Hit"
+    },
+    "End-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#End-zone"
+    },
+    "has-home-player-on-ice" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-player-on-ice",
+      "@type" : "@id"
+    },
+    "has-game-time" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-game-time",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "North-icing-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#North-icing-zone"
+    },
+    "has-season-game" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-season-game",
+      "@type" : "@id"
+    },
+    "has-time" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-time",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "is-season-for" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-season-for",
+      "@type" : "@id"
+    },
+    "has-adjusted-x-coordinate" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-adjusted-x-coordinate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "has-head-coach" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-head-coach",
+      "@type" : "@id"
+    },
+    "Penalty-box-zone-N" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty-box-zone-N"
+    },
+    "End-event" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#End-event"
+    },
+    "has-y-coordinate" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-y-coordinate",
+      "@type" : "http://www.w3.org/2001/XMLSchema#double"
+    },
+    "comment" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#comment"
+    },
+    "has-defendingS-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingS-team",
+      "@type" : "@id"
+    },
+    "Faceoff-spot" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot"
+    },
+    "has-defendingTeam-bench" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defendingTeam-bench",
+      "@type" : "@id"
+    },
+    "Faceoff-spot-NW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-NW"
+    },
+    "League" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#League"
+    },
+    "Faceoff-zone-C" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-zone-C"
+    },
+    "has-home-team-goals" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-team-goals",
+      "@type" : "http://www.w3.org/2001/XMLSchema#int"
+    },
+    "Period-end" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Period-end"
+    },
+    "has-away-team-goals" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-team-goals",
+      "@type" : "http://www.w3.org/2001/XMLSchema#int"
+    },
+    "Early-intermission-start" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Early-intermission-start"
+    },
+    "plays-in-league" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#plays-in-league",
+      "@type" : "@id"
+    },
+    "has-home-arena" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-arena",
+      "@type" : "@id"
+    },
+    "Zone-NW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Zone-NW"
+    },
+    "has-team-disposition" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-disposition",
+      "@type" : "@id"
+    },
+    "Protective-netting" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Protective-netting"
+    },
+    "Faceoff-spot-CNW" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Faceoff-spot-CNW"
+    },
+    "Game-state" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Game-state"
+    },
+    "occured-in-period" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#occured-in-period",
+      "@type" : "@id"
+    },
+    "Neutral-zone" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Neutral-zone"
+    },
+    "has-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-player",
+      "@type" : "@id"
+    },
+    "Shift" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Shift"
+    },
+    "has-penalized-player" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-penalized-player",
+      "@type" : "@id"
+    },
+    "has-away-team-roster" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-away-team-roster",
+      "@type" : "@id"
+    },
+    "has-home-team-roster" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-home-team-roster",
+      "@type" : "@id"
+    },
+    "has-date" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-date",
+      "@type" : "http://www.w3.org/2001/XMLSchema#date"
+    },
+    "has-team-roster" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-team-roster",
+      "@type" : "@id"
+    },
+    "has-shirt-number" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-shirt-number",
+      "@type" : "http://www.w3.org/2001/XMLSchema#int"
+    },
+    "is-game-for-season" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-game-for-season",
+      "@type" : "@id"
+    },
+    "Team-disposition" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Team-disposition"
+    },
+    "is-located-in" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#is-located-in",
+      "@type" : "@id"
+    },
+    "Penalty" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#Penalty"
+    },
+    "has-defending-team" : {
+      "@id" : "http://www.ida.liu.se/ontologies/ice-hockey-ontology#has-defending-team",
+      "@type" : "@id"
+    }
+  }
+}
